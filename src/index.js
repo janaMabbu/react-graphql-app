@@ -9,28 +9,9 @@ import * as serviceWorker from './serviceWorker';
 
 
 const client = new ApolloClient({
-  uri: "https://48p1r2roz4.sse.codesandbox.io"
+  uri: "https://api.github.com/graphql?access_token=2f3ffa4a55f50c0e72bebf34e7857072a8f23d8f&client_secret=ffaab5c8962c44dc142be4ea6de99b26bd1ff819"
 })
 
-// client
-//   .query({
-//     query: gql`
-//       {
-//         rates(currency: "USD") {
-//           currency
-//         }
-//       }
-//     `
-//   })
-//   .then(result => console.log(result));
-
-// const App = () => (
-//   <ApolloProvider client={client}>
-//     <div>
-//       <h2>My first Apollo app 🚀</h2>
-//     </div>
-//   </ApolloProvider>
-// );
 
 ReactDOM.render((
    <ApolloProvider client={client}>
