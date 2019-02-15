@@ -1,23 +1,44 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ApolloClient from "apollo-boost";
-// import gql from "graphql-tag";
-import { ApolloProvider } from "react-apollo";
+import ApolloClient from 'apollo-boost'
+import { ApolloProvider } from 'react-apollo'
+import { getQueryParam } from './ducks/helpers.js'
+import { getOauthToken } from './ducks/authenticate.js'
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 
-const client = new ApolloClient({
-  uri: "https://api.github.com/graphql?access_token=350a2602e29e9eb0c34a7e4b1b217a3921719913&client_secret=ffaab5c8962c44dc142be4ea6de99b26bd1ff819"
+ const code = getQueryParam('code')
+ let oauthToken
+console.log("jana")
+const renderApp = ()=>{
+  const client = new ApolloClient({
+  uri: `https://api.github.com/graphql?access_token=${oauthToken}&client_secret=${process.env.CLIENT_SECRET}`
 })
 
 
 ReactDOM.render((
    <ApolloProvider client={client}>
-    <App />
+    <App isAuthenticated={ !!oauthToken } />
   </ApolloProvider>),
 document.getElementById("root"));
+
+}
+  if(code) {
+    async function getToken() {
+      const response = await getOauthToken(code)
+      const json = await response.json();
+      if (json.access_token){
+        oauthToken = json.access_token
+      }
+      renderApp()
+    }
+    getToken()
+  }else {
+    renderApp()
+  }
+
 
 
 // If you want your app to work offline and load faster, you can change
