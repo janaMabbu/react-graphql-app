@@ -82,6 +82,7 @@ const RepositoryItem = ({
       <div>
         {!viewerHasStarred ? (
           <Mutation
+           errorPolicy="all"
             mutation={STAR_REPOSITORY}
             variables={{ id }}
             optimisticResponse={{
@@ -96,18 +97,21 @@ const RepositoryItem = ({
             }}
             update={updateAddStar}
           >
-            {(addStar, { data, loading, error }) => (
-              <Button
+            {(addStar, { data, loading, error }) => {
+               if (error) return <p>organization has enabled OAuth App access restrictions</p>;
+
+              return(<Button
                 onClick={addStar}
               >
                 {stargazers.totalCount} Star
-              </Button>
-            )}
+              </Button>)
+          }}
           </Mutation>
         ) : (
           <Mutation
             mutation={UNSTAR_REPOSITORY}
             variables={{ id }}
+             errorPolicy="all"
             optimisticResponse={{
               removeStar: {
                 __typename: 'Mutation',
@@ -120,13 +124,16 @@ const RepositoryItem = ({
             }}
             update={updateRemoveStar}
           >
-            {(removeStar, { data, loading, error }) => (
-              <Button
+            {(removeStar, { data, loading, error }) => {
+               if (error) return <p>organization has enabled OAuth App access restrictions</p>
+               return(
+                  <Button
                 onClick={removeStar}
               >
                 {stargazers.totalCount} Unstar
               </Button>
-            )}
+               )
+            }}
           </Mutation>
         )}
       </div>
