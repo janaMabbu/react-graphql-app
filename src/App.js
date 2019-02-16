@@ -15,7 +15,7 @@ class App extends Component {
     const { isAuthenticated, isTokenFailure } =this.props
         return (
           <Fragment>
-            <Header />
+            <Header isAuthenticated= {isAuthenticated} />
             <Switch>
               <Route exact path="/" render={() => <SignIn isTokenFailure = {isTokenFailure}/>} />
               <Route path="/starred" render={() => <StarredContent isAuthenticated = {isAuthenticated}/>} />

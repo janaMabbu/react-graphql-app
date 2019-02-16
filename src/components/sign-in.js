@@ -19,9 +19,13 @@ export default class SignIn extends React.Component {
           <strong>Some issue with Authenticating, please try logging in!</strong>
         </div> }
         <div className= { 'col-sm-12 ' + center_box }>
-          <a href="https://github.com/login/oauth/authorize?client_id=13f8dbc254ebd4fc3311&scope=public_repo" type="button" className= { 'btn btn-primary btn-lg ' + center_btn } >GIT SignIn</a>
+          <button onClick= {this.onClick} type="button" className= { 'btn btn-primary btn-lg ' + center_btn } >GIT SignIn</button>
         </div>
       </div>
     )
+  }
+  onClick =() => {
+    localStorage.removeItem('oToken');
+    window.location.assign("https://github.com/login/oauth/authorize?client_id=13f8dbc254ebd4fc3311&scope=public_repo")
   }
 }

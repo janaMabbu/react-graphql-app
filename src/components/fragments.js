@@ -56,3 +56,21 @@ export const GET_YOUR_REPOS = gql`
    }
           }
         `
+export const GET_REPOSITORIES_OF_ORGANIZATION = gql`
+  query($organizationName: String!, $cursor: String) {
+    organization(login: $organizationName) {
+      repositories(first: 10, after: $cursor) {
+        edges {
+          node {
+            ...repository
+          }
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+      }
+    }
+  }
+  ${REPOSITORY_FRAGMENT}
+`;

@@ -15,6 +15,8 @@ import * as serviceWorker from './serviceWorker';
  let isTokenFailure = false
 
 const renderApp = ()=>{
+
+  oauthToken =localStorage.getItem('oToken')
   const client = new ApolloClient({
   uri: `https://api.github.com/graphql?access_token=${oauthToken}&client_secret=${process.env.CLIENT_SECRET}`
 })
@@ -29,13 +31,13 @@ ReactDOM.render((
 document.getElementById("root"));
 
 }
-  if(code) {
+  if(code && !localStorage.getItem('oToken')) {
     async function getToken() {
     try {
         const response = await getOauthToken(code)
         const json = await response.json();
         if (json.access_token){
-          oauthToken = json.access_token
+          localStorage.setItem('oToken', json.access_token)
         } else {
           isTokenFailure = true
         }
