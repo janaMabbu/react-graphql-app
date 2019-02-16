@@ -1,9 +1,9 @@
 import React from 'react'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
+import RepositoryList from './repository-list'
 
 export default class MainContent extends React.Component {
-
   render () {
     return (
       <Query
@@ -13,15 +13,14 @@ export default class MainContent extends React.Component {
     name
      repositories(first: 50) {
        nodes {
+         id
          name
-         nameWithOwner
-          description
-        createdAt
-        updatedAt
-        isFork
+         url
+        descriptionHTML
+        viewerHasStarred
         stargazers {
-  totalCount
-}
+          totalCount
+        }
        }
      }
    }
@@ -33,19 +32,10 @@ export default class MainContent extends React.Component {
           if (error) return <p>Error :(</p>;
 
           return (
-          <div>
-              {data.viewer.repositories.nodes.map((repo) => (
-
-              <div key={repo.id}>
-                <p>{repo.name}</p>
-                <p>{repo.nameWithOwner}</p>
-                <p>{repo.description}</p>
-                <p>{repo.createdAt}</p>
-                <p>{repo.updatedAt}</p>
-                {repo.isFork ? <p>forked</p> : <p>not-forked</p>}
-              </div>
-            ))}
-          </div>
+            <RepositoryList
+          loading={loading}
+          repositories={data.viewer.repositories}
+        />
           );
         }}
       </Query>

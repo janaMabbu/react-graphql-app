@@ -11,7 +11,8 @@ import * as serviceWorker from './serviceWorker';
 
  const code = getQueryParam('code')
  let oauthToken
-console.log("jana")
+ let isTokenFailure = false
+
 const renderApp = ()=>{
   const client = new ApolloClient({
   uri: `https://api.github.com/graphql?access_token=${oauthToken}&client_secret=${process.env.CLIENT_SECRET}`
@@ -20,22 +21,31 @@ const renderApp = ()=>{
 
 ReactDOM.render((
    <ApolloProvider client={client}>
-    <App isAuthenticated={ !!oauthToken } />
+    <App isAuthenticated={ !!oauthToken } isTokenFailure ={ isTokenFailure} />
   </ApolloProvider>),
 document.getElementById("root"));
 
 }
   if(code) {
     async function getToken() {
-      const response = await getOauthToken(code)
-      const json = await response.json();
-      if (json.access_token){
-        oauthToken = json.access_token
+    try {
+        const response = await getOauthToken(code)
+        const json = await response.json();
+        if (json.access_token){
+          oauthToken = json.access_token
+        } else {
+          isTokenFailure = true
+        }
+      } 
+    catch {
+        isTokenFailure = true
+      } 
+    finally{
+        renderApp()
       }
-      renderApp()
     }
     getToken()
-  }else {
+  } else {
     renderApp()
   }
 
