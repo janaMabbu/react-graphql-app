@@ -4,14 +4,14 @@ import { css } from 'emotion'
 
 const respository_item = css`
   padding: 20px;
-	border-bottom: 1px solid #000;`
+	border-top: 1px solid #000;`
 
 
 const RepositoryList = ({
   repositories,
 }) => (
   <Fragment>
-    {repositories.nodes.map((node) => (
+    {repositories.edges.map(({node}) => (
       <div key={node.name} className={ respository_item }>
         <RepositoryItem {...node} />
       </div>

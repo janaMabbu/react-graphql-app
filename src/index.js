@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { HashRouter as Router } from 'react-router-dom'
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
 import { getQueryParam } from './ducks/helpers.js'
@@ -21,7 +22,9 @@ const renderApp = ()=>{
 
 ReactDOM.render((
    <ApolloProvider client={client}>
-    <App isAuthenticated={ !!oauthToken } isTokenFailure ={ isTokenFailure} />
+   <Router>
+      <App isAuthenticated={ !!oauthToken } isTokenFailure ={ isTokenFailure} />
+    </Router>
   </ApolloProvider>),
 document.getElementById("root"));
 

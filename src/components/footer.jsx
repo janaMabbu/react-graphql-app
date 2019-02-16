@@ -8,7 +8,7 @@ export default class Footer extends React.Component {
       <div className={css`
       width: 100%;
       height: 100px;
-      background-color: blue;
+      background-color: #2e6da4;
     `}> </div>
     )
   }

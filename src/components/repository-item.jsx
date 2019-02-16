@@ -1,7 +1,7 @@
 import React from 'react';
 import { Mutation } from 'react-apollo'
 
-import REPOSITORY_FRAGMENT from './fragments'
+import { REPOSITORY_FRAGMENT } from './fragments'
 import Link from './link';
 import Button from './button'
 import './style.css'
@@ -9,6 +9,7 @@ import {
   STAR_REPOSITORY,
   UNSTAR_REPOSITORY,
 } from './mutations';
+
 
 
 
