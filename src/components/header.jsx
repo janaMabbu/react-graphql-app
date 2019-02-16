@@ -1,7 +1,7 @@
 import React from 'react'
 import { css } from 'emotion'
-
-export default class Header extends React.Component {
+import { withRouter} from 'react-router-dom'
+class Header extends React.Component {
 
   render () {
     return (
@@ -17,7 +17,13 @@ export default class Header extends React.Component {
     )
   }
   onClick= ()=> {
-      localStorage.removeItem('oToken');
-      window.location.assign('https://github.com/logout')
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('oToken');
+    // find a way to kill github session...
+    // navigate to the home route
+     this.props.history.push({
+        pathname: '/'
+      })
     }
 }
+export default withRouter (Header)
