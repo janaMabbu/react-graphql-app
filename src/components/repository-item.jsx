@@ -1,6 +1,6 @@
 import React from 'react';
 import { Mutation } from 'react-apollo'
-
+import { css } from 'emotion'
 import { REPOSITORY_FRAGMENT } from './fragments'
 import Link from './link';
 import Button from './button'
@@ -10,69 +10,16 @@ import {
   UNSTAR_REPOSITORY,
 } from './mutations';
 
-
-
-
-const updateAddStar = (
-  client,
-  {
-    data: {
-      addStar: {
-        starrable: { id, viewerHasStarred },
-      },
-    },
-  },
-) =>
-  client.writeFragment({
-    id: `Repository:${id}`,
-    fragment: REPOSITORY_FRAGMENT,
-    data: getUpdatedStarData(client, id, viewerHasStarred),
-  });
-
-const updateRemoveStar = (
-  client,
-  {
-    data: {
-      removeStar: {
-        starrable: { id, viewerHasStarred },
-      },
-    },
-  },
-) => {
-  client.writeFragment({
-    id: `Repository:${id}`,
-    fragment: REPOSITORY_FRAGMENT,
-    data: getUpdatedStarData(client, id, viewerHasStarred),
-  });
-};
-
-const getUpdatedStarData = (client, id, viewerHasStarred) => {
-  const repository = client.readFragment({
-    id: `Repository:${id}`,
-    fragment: REPOSITORY_FRAGMENT,
-  });
-
-  let { totalCount } = repository.stargazers;
-  totalCount = viewerHasStarred ? totalCount + 1 : totalCount - 1;
-
-  return {
-    ...repository,
-    stargazers: {
-      ...repository.stargazers,
-      totalCount,
-    },
-  };
-};
-
-const RepositoryItem = ({
-  id,
+export default class RepositoryItem extends React.Component {
+  render () {
+    const{ id,
   name,
   url,
   descriptionHTML,
   stargazers,
-  totalCount,
-  viewerHasStarred,
-}) => (
+  viewerHasStarred,} =this.props
+    return (
+  (
   <div>
     <div className="RepositoryItem-title">
       <h2>
@@ -95,10 +42,10 @@ const RepositoryItem = ({
                 },
               },
             }}
-            update={updateAddStar}
+            update={this.updateAddStar}
           >
             {(addStar, { data, loading, error }) => {
-               if (error) return <p>organization has enabled OAuth App access restrictions</p>;
+               if (error) return <strong className={css`color:red;`}>organization has enabled OAuth App access restrictions</strong>
 
               return(<Button
                 onClick={addStar}
@@ -122,10 +69,10 @@ const RepositoryItem = ({
                 },
               },
             }}
-            update={updateRemoveStar}
+            update={this.updateRemoveStar}
           >
             {(removeStar, { data, loading, error }) => {
-               if (error) return <p>organization has enabled OAuth App access restrictions</p>
+               if (error) return <strong className={css`color:red;`}>organization has enabled OAuth App access restrictions</strong>;
                return(
                   <Button
                 onClick={removeStar}
@@ -146,6 +93,60 @@ const RepositoryItem = ({
       />
       </div>
     </div>
-);
+)
+    )
+  }
+  updateAddStar = (
+  client,
+  {
+    data: {
+      addStar: {
+        starrable: { id, viewerHasStarred },
+      },
+    },
+  },
+) =>
+  client.writeFragment({
+    id: `Repository:${id}`,
+    fragment: REPOSITORY_FRAGMENT,
+    data: this.getUpdatedStarData(client, id, viewerHasStarred),
+  });
 
-export default RepositoryItem;
+  updateRemoveStar = (
+  client,
+  {
+    data: {
+      removeStar: {
+        starrable: { id, viewerHasStarred },
+      },
+    },
+  },
+) => {
+  client.writeFragment({
+    id: `Repository:${id}`,
+    fragment: REPOSITORY_FRAGMENT,
+    data: this.getUpdatedStarData(client, id, viewerHasStarred),
+  });
+};
+
+getUpdatedStarData = (client, id, viewerHasStarred) => {
+  const repository = client.readFragment({
+    id: `Repository:${id}`,
+    fragment: REPOSITORY_FRAGMENT,
+  });
+
+  let { totalCount } = repository.stargazers;
+  totalCount = viewerHasStarred ? totalCount + 1 : totalCount - 1;
+
+  return {
+    ...repository,
+    stargazers: {
+      ...repository.stargazers,
+      totalCount,
+    },
+  };
+};
+
+
+}
+

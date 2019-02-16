@@ -6,18 +6,6 @@ import { withRouter} from 'react-router-dom'
 import { REPOSITORY_FRAGMENT } from './fragments'
 import gql from 'graphql-tag';
 import { css } from 'emotion'
-// import { onError } from "apollo-link-error";
-
-// const link = onError(({ graphQLErrors, networkError }) => {
-//   if (graphQLErrors)
-//     graphQLErrors.map(({ message, locations, path }) =>
-//       console.log(
-//         `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
-//       ),
-//     );
-
-//   if (networkError) console.log(`[Network error]: ${networkError}`);
-// });
 
 
 const GET_REPOSITORIES_OF_ORGANIZATION = gql`
@@ -58,11 +46,10 @@ class StarredContent extends React.Component {
   }
 
   render () {
-    console.log("rendering")
     return (
       <Fragment>
       <div className={ search__form } >
-        <div className="input-group col-sm-12">
+        <div className="input-group col-xs-12">
   <input id="search-box" type="text" className="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2"></input>
   <div className="input-group-append">
   </div>
@@ -78,7 +65,7 @@ class StarredContent extends React.Component {
 
             return (
               <Fragment>
-              <h1>Your Starred Repositories!!!</h1>
+              <h1 className={css`text-align:center;`}>Your Starred Repositories!!!</h1>
               <RepositoryList repositories={data.viewer.starredRepositories} />
             </Fragment>
             );
@@ -96,7 +83,7 @@ class StarredContent extends React.Component {
 
           return (
             <Fragment>
-            <h1>Your results!!</h1>
+            <h1 className={css`text-align:center;`}>Your results!!</h1>
             <RepositoryList repositories={data.organization.repositories} />
           </Fragment>
           );
