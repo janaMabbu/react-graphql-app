@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
 export const REPOSITORY_FRAGMENT = gql`
   fragment repository on Repository {
@@ -73,4 +73,4 @@ export const GET_REPOSITORIES_OF_ORGANIZATION = gql`
     }
   }
   ${REPOSITORY_FRAGMENT}
-`;
+`

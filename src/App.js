@@ -6,16 +6,11 @@ import StarredContent from './components/starred-content'
 import { Switch, Route } from 'react-router-dom'
 
 class App extends Component {
-  state ={
-    authenticated: true,
-    isTokenReceived: false
-  }
-
   render () {
     const { isAuthenticated, isTokenFailure } =this.props
         return (
           <Fragment>
-            <Header isAuthenticated= {isAuthenticated} />
+            <Header isAuthenticated= {isAuthenticated} removeAuth ={this.removeAuth} />
             <Switch>
               <Route exact path="/" render={() => <SignIn isTokenFailure = {isTokenFailure}/>} />
               <Route path="/starred" render={() => <StarredContent isAuthenticated = {isAuthenticated}/>} />

@@ -1,10 +1,10 @@
-import React from 'react';
+import React from 'react'
 import { css } from 'emotion'
 
-const button__class = css`
+const buttonClass = css`
   margin-left: 10px;
   border: 1px solid #000;
-  color: #000;
+  color: blue;
   :hover {
   color: #fff;
   background: #000;
@@ -17,17 +17,15 @@ const button__class = css`
 
 const Button = ({
   children,
-  className,
   ...props
 }) => (
   <button
-    className={ button__class }
-    type='button'
-    {...props}
+    className={ buttonClass }
+    type="button"
+    { ...props }
   >
-    {children}
+    { children }
   </button>
 )
-
 
 export default Button

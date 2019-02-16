@@ -5,11 +5,12 @@ import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
 import { getQueryParam } from './ducks/helpers.js'
 import { getOauthToken } from './ducks/authenticate.js'
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import './index.css'
+import App from './App'
+import * as serviceWorker from './serviceWorker'
 
-
+const CLIENT_SECRET= "ffaab5c8962c44dc142be4ea6de99b26bd1ff819"
+const CLIENT_ID= "13f8dbc254ebd4fc3311"
  const code = getQueryParam('code')
  let oauthToken
  let isTokenFailure = false
@@ -18,7 +19,7 @@ const renderApp = ()=>{
 
   oauthToken =localStorage.getItem('oToken')
   const client = new ApolloClient({
-  uri: `https://api.github.com/graphql?access_token=${oauthToken}&client_secret=${process.env.CLIENT_SECRET}`
+  uri: `https://api.github.com/graphql?access_token=${oauthToken}&client_secret=${CLIENT_SECRET}`
 })
 
 
@@ -28,13 +29,12 @@ ReactDOM.render((
       <App isAuthenticated={ !!oauthToken } isTokenFailure ={ isTokenFailure} />
     </Router>
   </ApolloProvider>),
-document.getElementById("root"));
-
+document.getElementById("root"))
 }
   if(code && !localStorage.getItem('oToken')) {
     async function getToken() {
     try {
-        const response = await getOauthToken(code)
+        const response = await getOauthToken(CLIENT_ID, CLIENT_SECRET, code)
         const json = await response.json();
         if (json.access_token){
           localStorage.setItem('oToken', json.access_token)
