@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Repository-tem:snapshots testing Repository-item-snapshots 1`] = `
+<div>
+  <div
+    className="css-yduxpk"
+  >
+    <h2>
+      <a
+        href="https://github.com/facebook/zstd"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        repo1
+      </a>
+    </h2>
+    <div>
+      <button
+        className="css-1oih4z3"
+        onClick={[Function]}
+        type="button"
+      >
+        1
+         Unstar
+      </button>
+    </div>
+  </div>
+  <div
+    className="css-1mkpf1j"
+  >
+    <div
+      className="css-e2fs5t"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<div>snapshottestcases/div>",
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`Repository-tem:snapshots testing Repository-item-snapshots 2`] = `
+<div>
+  <div
+    className="css-yduxpk"
+  >
+    <h2>
+      <a
+        href="https://github.com/facebook/zstd"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        repo2
+      </a>
+    </h2>
+    <div>
+      <button
+        className="css-1oih4z3"
+        onClick={[Function]}
+        type="button"
+      >
+        1
+         Unstar
+      </button>
+    </div>
+  </div>
+  <div
+    className="css-1mkpf1j"
+  >
+    <div
+      className="css-e2fs5t"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<div>snapshottestcases 23/div>",
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`Repository-tem:snapshots testing Repository-item-snapshots 3`] = `
+<div>
+  <div
+    className="css-yduxpk"
+  >
+    <h2>
+      <a
+        href="https://github.com/facebook/zstd"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        repo3
+      </a>
+    </h2>
+    <div>
+      <button
+        className="css-1oih4z3"
+        onClick={[Function]}
+        type="button"
+      >
+        1
+         Unstar
+      </button>
+    </div>
+  </div>
+  <div
+    className="css-1mkpf1j"
+  >
+    <div
+      className="css-e2fs5t"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<div>snapshottestcases 45/div>",
+        }
+      }
+    />
+  </div>
+</div>
+`;

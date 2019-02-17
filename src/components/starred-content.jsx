@@ -32,7 +32,7 @@ static propTypes = {
 
   render () {
     return (
-      <Fragment>
+      <div className={ css`min-height: calc(100vh - 200px);`}>
         <div className={ searchForm } >
           <div className="input-group col-xs-12">
             <input id="search-box" type="text" className="form-control" placeholder="Organization Name .. ex:'webpack', 'facebook'" aria-label="Recipient's username" aria-describedby="basic-addon2"></input>
@@ -43,28 +43,32 @@ static propTypes = {
           </div>
         </div>
         { !this.state.search
-          ? <Query query={ GET_ALL_STARRED } errorPolicy="all" >
-            { ({ loading, error, data }) => {
+          ? <Query query={ GET_ALL_STARRED } errorPolicy="all" fetchPolicy="network-only" >
+            { ({ loading, error, data, refetch }) => {
               if (loading) return <p>Loading...</p>
-              if (error) return <p>Error :(</p>
-
-              return (
-                <Fragment>
-                  <h1 className={ css`text-align:center;` }>Your Starred Repositories!!!</h1>
-                  <RepositoryList repositories={ data.viewer.starredRepositories } />
-                </Fragment>
-              )
+              if (error || !(data.viewer && data.viewer.starredRepositories)) return <h3>Error while fecting your Repositories, please resign-in</h3>
+              if(data.viewer.starredRepositories.edges.length === 0) {
+                  return <h1 className={ css`text-align:center;` }>no repositories starred!!!</h1>
+              } else {
+                  return (
+                    <Fragment>
+                      <h1 className={ css`text-align:center;` }>Your Starred Repositories!!!</h1>
+                      <RepositoryList repositories={ data.viewer.starredRepositories } />
+                    </Fragment>
+                  )
+              }
             } }
           </Query>
           : <Query query={ GET_REPOSITORIES_OF_ORGANIZATION }
             errorPolicy="all"
+            fetchPolicy="network-only"
             variables={{
               organizationName: document.getElementById('search-box').value,
             }}
             skip={ document.getElementById('search-box').value === '' } >
             { ({ loading, error, data }) => {
               if (loading) return <p>Loading...</p>
-              if (error) return <p>No Repositories found</p>
+              if (error || !(data.organization && data.organization.repositories)) return <h3>No Repositories found</h3>
 
               return (
                 <Fragment>
@@ -75,7 +79,7 @@ static propTypes = {
             } }
           </Query>
         }
-      </Fragment>
+      </div>
     )
   }
 
@@ -83,7 +87,6 @@ static propTypes = {
     this.setState({
       search: !this.state.search
     })
-    this.forceUpdate()
   }
 }
 export default withRouter(StarredContent)

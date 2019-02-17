@@ -2,7 +2,7 @@ import React from 'react'
 import { css } from 'emotion'
 
 const centerBox = css`
-  min-height:300px;
+  min-height: calc(100vh - 200px);
   );`
 
 const centerBtn = css`
@@ -19,14 +19,16 @@ export default class SignIn extends React.Component {
           <strong>Some issue with Authenticating, please try logging in!</strong>
         </div> }
         <div className={ 'col-sm-12 ' + centerBox }>
-          <button onClick={ this.onClick } type="button" className={ 'btn btn-primary btn-lg ' + centerBtn } >GIT SignIn</button>
+          {!localStorage.getItem('oToken')
+           ? <button onClick={ this.onClick } type="button" className={ 'btn btn-primary btn-lg ' + centerBtn } >GIT SignIn</button>
+          : <button  disabled={true} type="button" className={ 'btn btn-primary btn-lg ' + centerBtn } >Already Signed-In</button> }
         </div>
       </div>
     )
   }
 
   onClick =() => {
-    localStorage.removeItem('oToken');
-    window.location.assign('https://github.com/login/oauth/authorize?client_id=13f8dbc254ebd4fc3311&    scope=public_repo')
+    localStorage.removeItem('oToken')
+    window.location.assign('https://github.com/login/oauth/authorize?client_id=13f8dbc254ebd4fc3311&scope=public_repo')
   }
 }

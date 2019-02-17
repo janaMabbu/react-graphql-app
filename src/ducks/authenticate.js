@@ -13,3 +13,15 @@ export const getOauthToken = (id,secret,code) => {
     }
   })
 }
+
+// export const logOut = () => {
+// const proxyurl = "https://cors-anywhere.herokuapp.com/"
+//   fetch(proxyurl + 'https://github.com/logout', {
+//     method: 'POST',
+//     headers: {'Access-Control-Allow-Headers': 'X-Requested-With'
+//     },
+//     xhrFields: {
+//              withCredentials: true
+//     }
+//   })
+// }

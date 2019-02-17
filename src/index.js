@@ -43,6 +43,7 @@ document.getElementById("root"))
         }
       } 
     catch {
+      localStorage.removeItem('oToken')
         isTokenFailure = true
       } 
     finally{

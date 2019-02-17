@@ -17,13 +17,13 @@ class Header extends React.Component {
   }
 
   onClick= () => {
-    localStorage.removeItem('isLoggedIn')
-    localStorage.removeItem('oToken')
+   localStorage.removeItem('oToken')
     // find a way to kill github session...
-    // navigate to the home route
-    this.props.history.push({
-      pathname: '/'
-    })
+    // // navigate to the home route
+    // this.props.history.push({
+    //   pathname: '/'
+    // })
+    window.location.assign('https://github.com/logout')
   }
 }
 export default withRouter (Header)
