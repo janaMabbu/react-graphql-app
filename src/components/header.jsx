@@ -1,6 +1,7 @@
 import React from 'react'
 import { css } from 'emotion'
 import { withRouter } from 'react-router-dom'
+// import { logOut } from '../ducks/authenticate'
 class Header extends React.Component {
   render () {
     return (
@@ -23,6 +24,7 @@ class Header extends React.Component {
     // this.props.history.push({
     //   pathname: '/'
     // })
+    //logOut()
     window.location.assign('https://github.com/logout')
   }
 }

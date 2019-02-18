@@ -6,7 +6,7 @@ export const getOauthToken = (id,secret,code) => {
   const gitURL = `https://github.com/login/oauth/access_token?client_id=${id}&client_secret=${secret}&code=${code}`
 
   return fetch(proxyurl + gitURL, {
-    method: 'GET',
+    method: 'POST',
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Accept': 'application/json'
@@ -14,14 +14,11 @@ export const getOauthToken = (id,secret,code) => {
   })
 }
 
-// export const logOut = () => {
-// const proxyurl = "https://cors-anywhere.herokuapp.com/"
-//   fetch(proxyurl + 'https://github.com/logout', {
-//     method: 'POST',
-//     headers: {'Access-Control-Allow-Headers': 'X-Requested-With'
-//     },
-//     xhrFields: {
-//              withCredentials: true
-//     }
-//   })
-// }
+export const logOut = () => {
+const proxyurl = "https://cors-anywhere.herokuapp.com/"
+  fetch(proxyurl + 'https://github.com/logout', {
+    method: 'POST',
+    // headers: {'Access-Control-Allow-Headers': 'X-Requested-With'
+    // }
+  })
+}
